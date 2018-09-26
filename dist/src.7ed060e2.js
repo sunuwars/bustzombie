@@ -22183,7 +22183,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../src/components/game.js":[function(require,module,exports) {
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../src/components/button.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -22196,6 +22196,116 @@ var _react = _interopRequireDefault(require("react"));
 var _zombieface = _interopRequireDefault(require("../../public/zombieface.png"));
 
 var _style = _interopRequireDefault(require("../../public/style"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Btn =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Btn, _React$Component);
+
+  function Btn() {
+    var _getPrototypeOf2;
+
+    var _this;
+
+    _classCallCheck(this, Btn);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Btn)).call.apply(_getPrototypeOf2, [this].concat(args)));
+    _this.state = {
+      showZombie: true
+    };
+
+    _this.toggle = function () {
+      _this.setState(function (prevState, props) {
+        if (prevState.showZombie) {
+          setTimeout(_this.refreshZombies, 1000);
+          return {
+            showZombie: !prevState.showZombie
+          };
+        } else {
+          return {
+            showZombie: !prevState.showZombie
+          };
+        }
+      });
+    };
+
+    _this.refreshZombies = function () {
+      _this.setState(function (prevState, props) {
+        // if(!this.showZombie)
+        return {
+          showZombie: !prevState.showZombie
+        };
+      });
+    };
+
+    return _this;
+  }
+
+  _createClass(Btn, [{
+    key: "render",
+    // randomShowZombie = () => {
+    //   this.setState( (prevState, props) => {
+    //     this.gamePlaying = setInterval(this.refreshZombies, 100);
+    //   })
+    // }
+    value: function render() {
+      return _react.default.createElement("div", {
+        className: "img-container"
+      }, this.state.showZombie && _react.default.createElement("img", {
+        src: _zombieface.default,
+        alt: "zombie face",
+        id: this.props.id,
+        onClick: this.toggle
+      }), !this.state.showZombie && _react.default.createElement("div", {
+        className: "empty_img",
+        id: this.props.id
+      }));
+    }
+  }]);
+
+  return Btn;
+}(_react.default.Component);
+
+exports.default = Btn;
+},{"react":"../node_modules/react/index.js","../../public/zombieface.png":"zombieface.png","../../public/style":"style.css"}],"../src/components/game.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _zombieface = _interopRequireDefault(require("../../public/zombieface.png"));
+
+var _style = _interopRequireDefault(require("../../public/style"));
+
+var _button = _interopRequireDefault(require("./button"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22233,9 +22343,22 @@ function (_React$Component) {
     value: function render() {
       return _react.default.createElement("div", {
         className: "game-container"
-      }, _react.default.createElement("img", {
-        src: _zombieface.default,
-        alt: "zombie face"
+      }, _react.default.createElement(_button.default, {
+        id: "1"
+      }), _react.default.createElement(_button.default, {
+        id: "2"
+      }), _react.default.createElement(_button.default, {
+        id: "3"
+      }), _react.default.createElement(_button.default, {
+        id: "4"
+      }), _react.default.createElement(_button.default, {
+        id: "5"
+      }), _react.default.createElement(_button.default, {
+        id: "6"
+      }), _react.default.createElement(_button.default, {
+        id: "7"
+      }), _react.default.createElement(_button.default, {
+        id: "8"
       }));
     }
   }]);
@@ -22244,7 +22367,7 @@ function (_React$Component) {
 }(_react.default.Component);
 
 exports.default = Game;
-},{"react":"../node_modules/react/index.js","../../public/zombieface.png":"zombieface.png","../../public/style":"style.css"}],"../src/components/intro.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../../public/zombieface.png":"zombieface.png","../../public/style":"style.css","./button":"../src/components/button.js"}],"../src/components/intro.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -22393,7 +22516,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57963" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52222" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
