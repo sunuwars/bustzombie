@@ -22240,23 +22240,25 @@ function (_React$Component) {
 
     _this.toggle = function () {
       _this.setState(function (prevState, props) {
-        return {
-          showZombie: !prevState.showZombie
-        };
+        if (prevState.showZombie) {
+          setTimeout(_this.refreshZombies, 1000);
+          return {
+            showZombie: !prevState.showZombie
+          };
+        } else {
+          return {
+            showZombie: !prevState.showZombie
+          };
+        }
       });
     };
 
     _this.refreshZombies = function () {
       _this.setState(function (prevState, props) {
-        if (!_this.showZombie) return {
+        // if(!this.showZombie)
+        return {
           showZombie: !prevState.showZombie
         };
-      });
-    };
-
-    _this.randomShowZombie = function () {
-      _this.setState(function (prevState, props) {
-        _this.gamePlaying = setInterval(_this.refreshZombies, 100);
       });
     };
 
@@ -22265,6 +22267,11 @@ function (_React$Component) {
 
   _createClass(Btn, [{
     key: "render",
+    // randomShowZombie = () => {
+    //   this.setState( (prevState, props) => {
+    //     this.gamePlaying = setInterval(this.refreshZombies, 100);
+    //   })
+    // }
     value: function render() {
       return _react.default.createElement("div", {
         className: "img-container"
@@ -22509,7 +22516,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63036" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52222" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
