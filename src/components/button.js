@@ -4,7 +4,7 @@ import style from "../../public/style";
 
 export default class Btn extends React.Component {
   state = {
-    showZombie: false,
+    showZombie: true,
   };
   toggle = () => {
     this.setState((prevState, props) => {
@@ -26,8 +26,7 @@ export default class Btn extends React.Component {
   render() {
     return (
       <div className="img-container">
-      <button onClick="randomShowZombie">Start</button>
-      <button>Stop</button>
+      
 
         {this.state.showZombie &&
           <img src={icon} alt={"zombie face"} id={this.props.id} onClick={this.toggle} />
