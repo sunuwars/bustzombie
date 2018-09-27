@@ -47,6 +47,14 @@ h1 {
   letter-spacing: 8px;
 }
 
+#game-over {
+  font-family: "Eater", cursive;
+  color: #2E88A0;
+  margin: 0;
+  letter-spacing: 8px;
+  text-align: center;
+}
+
 p {
   margin: 24px;
 }
@@ -86,3 +94,19 @@ img {
   height: calc(75vmin / 3);
   width: calc(75vmin / 3);
 }
+
+.timer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(75vmin / 6);
+  width: calc(75vmin / 6);
+  background-color: rgb(52, 160, 190);
+  border: 8px solid #41463d;
+  text-align: center;
+  font-family: "Oswald", sans-serif;
+  color: #41463d;
+  font-size: 2.5rem;
+  padding: 0.5rem;
+  }

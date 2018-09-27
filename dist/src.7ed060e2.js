@@ -22337,24 +22337,6 @@ function (_React$Component) {
 
   _createClass(Timer, [{
     key: "render",
-    // state = {
-    //     counting: false,
-    //     seconds: 60
-    // };
-    // componentDidMount() {
-    //   this.intervalId =  setInterval(
-    //         this.decrement, 1000)
-    // }
-    // decrement = () => {
-    //     this.setState((prevState) => {
-    //         if (prevState.seconds == 1) {
-    //             clearInterval(this.intervalId);
-    //         }
-    //         return {
-    //             seconds:prevState.seconds - 1
-    //         };
-    //     }
-    // )};
     value: function render() {
       return _react.default.createElement("div", {
         className: "timer"
@@ -22410,7 +22392,9 @@ function (_React$Component) {
   _createClass(Result, [{
     key: "render",
     value: function render() {
-      return _react.default.createElement("h2", null, "Game over!");
+      return _react.default.createElement("h2", {
+        id: "game-over"
+      }, "Game over!");
     }
   }]);
 
@@ -22499,6 +22483,11 @@ function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.intervalId = setInterval(this.decrement, 1000);
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      clearInterval(this.intervalId);
     }
   }, {
     key: "render",
@@ -22747,7 +22736,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "37507" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38183" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

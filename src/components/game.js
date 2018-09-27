@@ -14,6 +14,9 @@ componentDidMount() {
   this.intervalId =  setInterval(
         this.decrement, 1000)
 }
+componentWillUnmount() {
+  clearInterval(this.intervalId);
+}
 
 decrement = () => {
     this.setState((prevState) => {
