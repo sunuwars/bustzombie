@@ -9,35 +9,38 @@ export default class Btn extends React.Component {
 
   componentDidMount() {
     setTimeout(
-      this.refreshZombies,
-      Math.floor(Math.random() * (5000 - 1000) + 1000)
+      this.respawnZombies,
+      Math.floor(Math.random() * (5000 - 3000) + 3000)
     );
   }
   toggle = () => {
     this.setState((prevState, props) => {
+      
       if (prevState.showZombie) {
         setTimeout(
-          this.refreshZombies,
-          Math.floor(Math.random() * (5000 - 1000) + 1000)
-        );
+          this.respawnZombies,
+          Math.floor(Math.random() * (5000 - 3000) + 3000)
+        ); 
+        const {decrement} = props;
+        decrement();
+        return { showZombie: !prevState.showZombie };
       }
-      return { showZombie: !prevState.showZombie };
+
     });
   };
-  refreshZombies = () => {
-    this.setState(prevState => {
-      return { showZombie: !prevState.showZombie };
+  respawnZombies = () => {
+    this.setState((prevState, props) => {
+      const { increment } = props;
+      const {firstZombieAppeared} = props;
+      // console.log(increment)
+      increment();
+      firstZombieAppeared();
+      return { showZombie: !prevState.showZombie};
     });
   };
 
-  // randomShowZombie = () => {
-  //   this.setState( (prevState, props) => {
-  //     this.gamePlaying = setInterval(this.refreshZombies, 100);
-  //   })
-  // }
   render() {
-    // const { appear } = this.props.zombie;
-    // console.log(appear);
+    
     return (
       <div className="img-container">
         {this.state.showZombie && (
