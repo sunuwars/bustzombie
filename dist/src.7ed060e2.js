@@ -22235,27 +22235,23 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Btn)).call.apply(_getPrototypeOf2, [this].concat(args)));
     _this.state = {
-      showZombie: true
+      showZombie: false
     };
 
     _this.toggle = function () {
       _this.setState(function (prevState, props) {
         if (prevState.showZombie) {
-          setTimeout(_this.refreshZombies, 2000);
-          return {
-            showZombie: !prevState.showZombie
-          };
-        } else {
-          return {
-            showZombie: !prevState.showZombie
-          };
+          setTimeout(_this.refreshZombies, Math.floor(Math.random() * (5000 - 1000) + 1000));
         }
+
+        return {
+          showZombie: !prevState.showZombie
+        };
       });
     };
 
     _this.refreshZombies = function () {
-      _this.setState(function (prevState, props) {
-        // if(!this.showZombie)
+      _this.setState(function (prevState) {
         return {
           showZombie: !prevState.showZombie
         };
@@ -22266,6 +22262,11 @@ function (_React$Component) {
   }
 
   _createClass(Btn, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      setTimeout(this.refreshZombies, Math.floor(Math.random() * (5000 - 1000) + 1000));
+    }
+  }, {
     key: "render",
     // randomShowZombie = () => {
     //   this.setState( (prevState, props) => {
@@ -22273,6 +22274,8 @@ function (_React$Component) {
     //   })
     // }
     value: function render() {
+      // const { appear } = this.props.zombie;
+      // console.log(appear);
       return _react.default.createElement("div", {
         className: "img-container"
       }, this.state.showZombie && _react.default.createElement("img", {
@@ -22340,30 +22343,37 @@ function (_React$Component) {
 
   _createClass(Game, [{
     key: "render",
+    // state = {
+    //   zombies: [
+    //     { appear: false },
+    //     { appear: false },
+    //     { appear: true },
+    //     { appear: false },
+    //     { appear: false },
+    //     { appear: false },
+    //     { appear: false },
+    //     { appear: false },
+    //     { appear: false }
+    //   ]
+    // };
+    // toggle = () => {
+    //   this.setState((prevState, props) => {
+    //     return { showZombie: !prevState.showZombie };
+    //   });
+    // };
+    // refreshZombies = () => {
+    //   this.setState((prevState, props) => {
+    //     // if(!this.showZombie)
+    //     return { showZombie: !prevState.showZombie };
+    //   });
+    // };
     value: function render() {
+      // const { zombies } = this.state;
       return _react.default.createElement("div", null, _react.default.createElement("div", {
         className: "header"
       }, _react.default.createElement("h1", null, "Bust Zombieee")), _react.default.createElement("div", {
         className: "game-container"
-      }, _react.default.createElement(_button.default, {
-        id: "1"
-      }), _react.default.createElement(_button.default, {
-        id: "2"
-      }), _react.default.createElement(_button.default, {
-        id: "3"
-      }), _react.default.createElement(_button.default, {
-        id: "4"
-      }), _react.default.createElement(_button.default, {
-        id: "5"
-      }), _react.default.createElement(_button.default, {
-        id: "6"
-      }), _react.default.createElement(_button.default, {
-        id: "7"
-      }), _react.default.createElement(_button.default, {
-        id: "8"
-      }), _react.default.createElement(_button.default, {
-        id: "9"
-      })));
+      }, _react.default.createElement(_button.default, null), _react.default.createElement(_button.default, null), _react.default.createElement(_button.default, null), _react.default.createElement(_button.default, null), _react.default.createElement(_button.default, null), _react.default.createElement(_button.default, null), _react.default.createElement(_button.default, null), _react.default.createElement(_button.default, null), _react.default.createElement(_button.default, null)));
     }
   }]);
 
@@ -22601,7 +22611,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51215" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53509" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

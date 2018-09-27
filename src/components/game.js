@@ -2,23 +2,51 @@ import React from "react";
 import icon from "../../public/zombieface.png";
 import style from "../../public/style";
 import Btn from "./button";
+
 export default class Game extends React.Component {
+  // state = {
+  //   zombies: [
+  //     { appear: false },
+  //     { appear: false },
+  //     { appear: true },
+  //     { appear: false },
+  //     { appear: false },
+  //     { appear: false },
+  //     { appear: false },
+  //     { appear: false },
+  //     { appear: false }
+  //   ]
+  // };
+
+  // toggle = () => {
+  //   this.setState((prevState, props) => {
+  //     return { showZombie: !prevState.showZombie };
+  //   });
+  // };
+  // refreshZombies = () => {
+  //   this.setState((prevState, props) => {
+  //     // if(!this.showZombie)
+  //     return { showZombie: !prevState.showZombie };
+  //   });
+  // };
+
   render() {
+    // const { zombies } = this.state;
     return (
       <div>
         <div className="header">
           <h1>Bust Zombieee</h1>
         </div>
         <div className="game-container">
-          <Btn id="1" />
-          <Btn id="2" />
-          <Btn id="3" />
-          <Btn id="4" />
-          <Btn id="5" />
-          <Btn id="6" />
-          <Btn id="7" />
-          <Btn id="8" />
-          <Btn id="9" />
+          <Btn />
+          <Btn />
+          <Btn />
+          <Btn />
+          <Btn />
+          <Btn />
+          <Btn />
+          <Btn />
+          <Btn />
         </div>
       </div>
     );
