@@ -13,6 +13,9 @@ export default class Game extends React.Component {
     zombiesAlive: 0,
     firstZombieAppeared: false
   };
+  // problem: have to clear this timer when you win or loose
+  // otherwise the gameover screen renders on top of you win screen
+  // after time is over
   componentDidMount() {
     this.intervalId = setInterval(this.countDown, 1000);
   }
@@ -56,10 +59,14 @@ export default class Game extends React.Component {
           <h1>Bust Zombieee</h1>
         </div>
         {/* render this div if this.state.seconds == 0, i.e time has not run out
-         AND ( (first zombie has appeared AND zombies alive is not 0) OR (first zombie has not appeared, we don't want to end game before it starts! )*/}
+         AND ( (first zombie has appeared AND zombies alive is not 0 
+          AND zombies alive is less than 9- because them you lose)
+         OR (first zombie has not appeared, we don't want to end game before it starts! )*/}
 
         {!this.state.seconds == 0 &&
-          ((this.state.firstZombieAppeared && this.state.zombiesAlive != 0) ||
+          ((this.state.firstZombieAppeared &&
+            this.state.zombiesAlive != 0 &&
+            this.state.zombiesAlive < 9) ||
             !this.state.firstZombieAppeared) && (
             <div>
               <div className="game-container">
@@ -121,9 +128,11 @@ export default class Game extends React.Component {
               <Timer time={this.state.seconds} />
             </div>
           )}
-        {this.state.seconds == 0 && <GameOver />}
         {this.state.zombiesAlive == 0 &&
           this.state.firstZombieAppeared && <YouHaveWon />}
+        {(this.state.seconds == 0 || this.state.zombiesAlive >= 9) && (
+          <GameOver />
+        )}
       </div>
     );
   }
