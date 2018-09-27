@@ -2,41 +2,40 @@ import React from "react";
 import icon from "../../public/zombieface.png";
 import style from "../../public/style";
 import Btn from "./button";
+import Timer from './timer';
+import GameOver from './gameOver';
 
 export default class Game extends React.Component {
-  // state = {
-  //   zombies: [
-  //     { appear: false },
-  //     { appear: false },
-  //     { appear: true },
-  //     { appear: false },
-  //     { appear: false },
-  //     { appear: false },
-  //     { appear: false },
-  //     { appear: false },
-  //     { appear: false }
-  //   ]
-  // };
+  state = {
+    counting: false,
+    seconds: 10
+};
+componentDidMount() {
+  this.intervalId =  setInterval(
+        this.decrement, 1000)
+}
 
-  // toggle = () => {
-  //   this.setState((prevState, props) => {
-  //     return { showZombie: !prevState.showZombie };
-  //   });
-  // };
-  // refreshZombies = () => {
-  //   this.setState((prevState, props) => {
-  //     // if(!this.showZombie)
-  //     return { showZombie: !prevState.showZombie };
-  //   });
-  // };
+decrement = () => {
+    this.setState((prevState) => {
+        if (prevState.seconds == 1) {
+            clearInterval(this.intervalId);
+        }
+        return {
+            seconds:prevState.seconds - 1
+        };
+    }
+
+)};
 
   render() {
-    // const { zombies } = this.state;
+   
     return (
       <div>
         <div className="header">
           <h1>Bust Zombieee</h1>
         </div>
+        {!this.state.seconds == 0 && (
+          <div>
         <div className="game-container">
           <Btn />
           <Btn />
@@ -48,6 +47,12 @@ export default class Game extends React.Component {
           <Btn />
           <Btn />
         </div>
+        <Timer time={this.state.seconds}/>
+        </div>
+        )}
+              {this.state.seconds == 0 && (
+          <GameOver />
+        )}
       </div>
     );
   }
