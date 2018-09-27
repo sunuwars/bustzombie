@@ -59,7 +59,7 @@ export default class Game extends React.Component {
           <h1>Bust Zombieee</h1>
         </div>
         {/* render this div if this.state.seconds == 0, i.e time has not run out
-         AND first zombie has appeared AND zombies alive is 0 OR (first zombie has not appeared, we don't want to end game before it starts! */}
+         AND ( (first zombie has appeared AND zombies alive is not 0) OR (first zombie has not appeared, we don't want to end game before it starts! )*/}
 
         {!this.state.seconds == 0 
         &&  ( (this.state.firstZombieAppeared && this.state.zombiesAlive != 0) || !this.state.firstZombieAppeared)
