@@ -2,36 +2,13 @@ import React from "react";
 import icon from "../../public/zombieface.png";
 import style from "../../public/style";
 import Btn from "./button";
+import Timer from './timer';
 
 export default class Game extends React.Component {
-  // state = {
-  //   zombies: [
-  //     { appear: false },
-  //     { appear: false },
-  //     { appear: true },
-  //     { appear: false },
-  //     { appear: false },
-  //     { appear: false },
-  //     { appear: false },
-  //     { appear: false },
-  //     { appear: false }
-  //   ]
-  // };
-
-  // toggle = () => {
-  //   this.setState((prevState, props) => {
-  //     return { showZombie: !prevState.showZombie };
-  //   });
-  // };
-  // refreshZombies = () => {
-  //   this.setState((prevState, props) => {
-  //     // if(!this.showZombie)
-  //     return { showZombie: !prevState.showZombie };
-  //   });
-  // };
+  
 
   render() {
-    // const { zombies } = this.state;
+   
     return (
       <div>
         <div className="header">
@@ -48,6 +25,7 @@ export default class Game extends React.Component {
           <Btn />
           <Btn />
         </div>
+        <Timer />
       </div>
     );
   }
