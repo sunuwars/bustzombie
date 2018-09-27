@@ -1,113 +1,13 @@
-@import url("https://fonts.googleapis.com/css?family=Eater|Oswald");
-
-/* 
-  #41463D
-  #FE621D
-  #FD5200
-  #00CFC1
-  #00FFE7
-  #C7EDE4
-*/
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family: "Oswald", sans-serif;
-  color: #41463d;
-  background-color: #c7ede4;
-  max-width: 100vw;
-  max-height: 100vh;
-}
-
-#root {
-  padding: 5vmin;
-  width: 90vw;
-  height: 90vh;
-}
-
-button {
-  background-color: #fd5200;
-  border: 8px solid #41463d;
-  padding: 0 16px;
-  border-radius: 8px;
-  text-align: center;
-  margin: 32px;
-  box-shadow: 0px 17px 10px -10px rgba(0, 0, 0, 0.4);
-}
-
-button > h1 {
-  color: #41463d;
-  letter-spacing: 4px;
-}
-
-h1 {
-  font-family: "Eater", cursive;
-  color: #fd5200;
-  margin: 0;
-  letter-spacing: 4px;
-}
-
-h2 {
-}
-
-p {
-  margin: 24px;
-}
-
-.page-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 1rem;
-}
-
 .game-container {
-  border: 8px solid #41463d;
-  display: flex;
-  flex-wrap: wrap;
-  height: 50vmin;
-  width: 50vmin;
-  background-color: #00cfc1;
-  margin: auto;
-  margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
+  border: 5px solid teal;
+  /* display:flex; */
+  height: 50vh;
+  width: 50vw;
 }
-
-.img-container {
-  height: calc(50vmin / 3);
-  width: calc(50vmin / 3);
-  /* border: 1px solid green; */
-  float: left;
-}
-
 .empty_img,
-#2 {
-  height: calc(50vmin / 3);
-  width: calc(50vmin / 3);
-  color: red;
-  float: left;
-}
 img {
-  height: calc(50vmin / 3);
-  width: calc(50vmin / 3);
-}
-
-.timer {
-  width: calc(50vmin / 3);
-  /* background-color: #00cfc1; */
-  border: 2px solid #41463d;
-  text-align: center;
-  font-family: "Oswald", sans-serif;
-  color: #41463d;
-  font-size: 1.5rem;
-  padding: 0.25rem;
-  margin: auto;
-  margin-top: 0.5rem;
-}
-
-.game-over {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 1rem;
+  height: 128px;
+  width: 128px;
+  border: 1px solid green;
+  float: left;
 }
