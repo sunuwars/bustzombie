@@ -22410,7 +22410,9 @@ function (_React$Component) {
   _createClass(Result, [{
     key: "render",
     value: function render() {
-      return _react.default.createElement("h2", null, "Game over!");
+      return _react.default.createElement("div", {
+        className: "game-over"
+      }, _react.default.createElement("h2", null, "Game over!"), _react.default.createElement("h1", null, "You lost..."));
     }
   }]);
 
@@ -22477,7 +22479,7 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Game)).call.apply(_getPrototypeOf2, [this].concat(args)));
     _this.state = {
       counting: false,
-      seconds: 10
+      seconds: 30
     };
 
     _this.decrement = function () {
@@ -22504,7 +22506,7 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       return _react.default.createElement("div", null, _react.default.createElement("div", {
-        className: "header"
+        className: "page-container"
       }, _react.default.createElement("h1", null, "Bust Zombieee")), !this.state.seconds == 0 && _react.default.createElement("div", null, _react.default.createElement("div", {
         className: "game-container"
       }, _react.default.createElement(_button.default, null), _react.default.createElement(_button.default, null), _react.default.createElement(_button.default, null), _react.default.createElement(_button.default, null), _react.default.createElement(_button.default, null), _react.default.createElement(_button.default, null), _react.default.createElement(_button.default, null), _react.default.createElement(_button.default, null), _react.default.createElement(_button.default, null)), _react.default.createElement(_timer.default, {
@@ -22641,7 +22643,7 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       return _react.default.createElement("div", null, !this.state.gameOn && _react.default.createElement("div", {
-        className: "header"
+        className: "page-container"
       }, _react.default.createElement("h1", null, "Bust Zombieee"), _react.default.createElement("p", null, "Zombies keep coming! You need to click on them to bust them!"), _react.default.createElement(_start.default, {
         clickHandler: this.startGame
       })), this.state.gameOn && _react.default.createElement(_game.default, null));
@@ -22747,7 +22749,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "37507" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64134" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
