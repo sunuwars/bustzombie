@@ -22241,17 +22241,23 @@ function (_React$Component) {
     _this.toggle = function () {
       _this.setState(function (prevState, props) {
         if (prevState.showZombie) {
-          setTimeout(_this.refreshZombies, Math.floor(Math.random() * (5000 - 1000) + 1000));
+          setTimeout(_this.respawnZombies, Math.floor(Math.random() * (5000 - 3000) + 3000));
+          var decrement = props.decrement;
+          decrement();
+          return {
+            showZombie: !prevState.showZombie
+          };
         }
-
-        return {
-          showZombie: !prevState.showZombie
-        };
       });
     };
 
-    _this.refreshZombies = function () {
-      _this.setState(function (prevState) {
+    _this.respawnZombies = function () {
+      _this.setState(function (prevState, props) {
+        var increment = props.increment;
+        var firstZombieAppeared = props.firstZombieAppeared; // console.log(increment)
+
+        increment();
+        firstZombieAppeared();
         return {
           showZombie: !prevState.showZombie
         };
@@ -22264,18 +22270,11 @@ function (_React$Component) {
   _createClass(Btn, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      setTimeout(this.refreshZombies, Math.floor(Math.random() * (5000 - 1000) + 1000));
+      setTimeout(this.respawnZombies, Math.floor(Math.random() * (5000 - 3000) + 3000));
     }
   }, {
     key: "render",
-    // randomShowZombie = () => {
-    //   this.setState( (prevState, props) => {
-    //     this.gamePlaying = setInterval(this.refreshZombies, 100);
-    //   })
-    // }
     value: function render() {
-      // const { appear } = this.props.zombie;
-      // console.log(appear);
       return _react.default.createElement("div", {
         className: "img-container"
       }, this.state.showZombie && _react.default.createElement("img", {
@@ -22418,6 +22417,58 @@ function (_React$Component) {
 }(_react.default.Component);
 
 exports.default = Result;
+},{"react":"../node_modules/react/index.js"}],"../src/components/youHaveWon.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var YouHaveWon =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(YouHaveWon, _React$Component);
+
+  function YouHaveWon() {
+    _classCallCheck(this, YouHaveWon);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(YouHaveWon).apply(this, arguments));
+  }
+
+  _createClass(YouHaveWon, [{
+    key: "render",
+    value: function render() {
+      return _react.default.createElement("h2", null, " Congratulations! You have won!");
+    }
+  }]);
+
+  return YouHaveWon;
+}(_react.default.Component);
+
+exports.default = YouHaveWon;
 },{"react":"../node_modules/react/index.js"}],"../src/components/game.js":[function(require,module,exports) {
 "use strict";
 
@@ -22437,6 +22488,8 @@ var _button = _interopRequireDefault(require("./button"));
 var _timer = _interopRequireDefault(require("./timer"));
 
 var _gameOver = _interopRequireDefault(require("./gameOver"));
+
+var _youHaveWon = _interopRequireDefault(require("./youHaveWon"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22477,10 +22530,37 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Game)).call.apply(_getPrototypeOf2, [this].concat(args)));
     _this.state = {
       counting: false,
-      seconds: 10
+      seconds: 30,
+      zombiesAlive: 0,
+      firstZombieAppeared: false
+    };
+
+    _this.setFirstZombieAppeared = function () {
+      _this.setState(function (prevState) {
+        return {
+          firstZombieAppeared: true
+        };
+      });
+    };
+
+    _this.increment = function () {
+      _this.setState(function (prevState) {
+        // console.log("working")
+        return {
+          zombiesAlive: prevState.zombiesAlive + 1
+        };
+      });
     };
 
     _this.decrement = function () {
+      _this.setState(function (prevState) {
+        return {
+          zombiesAlive: prevState.zombiesAlive - 1
+        };
+      });
+    };
+
+    _this.countDown = function () {
       _this.setState(function (prevState) {
         if (prevState.seconds == 1) {
           clearInterval(_this.intervalId);
@@ -22498,18 +22578,66 @@ function (_React$Component) {
   _createClass(Game, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.intervalId = setInterval(this.decrement, 1000);
-    }
+      this.intervalId = setInterval(this.countDown, 1000);
+    } //calling this function will set firstZombieAppeared to true, this is useful in determining if user has won the game by checking 
+    // if zombiesAlive = 0
+
   }, {
     key: "render",
     value: function render() {
+      // console.log(this.state)
       return _react.default.createElement("div", null, _react.default.createElement("div", {
         className: "header"
-      }, _react.default.createElement("h1", null, "Bust Zombieee")), !this.state.seconds == 0 && _react.default.createElement("div", null, _react.default.createElement("div", {
+      }, _react.default.createElement("h1", null, "Bust Zombieee")), !this.state.seconds == 0 && (this.state.firstZombieAppeared && this.state.zombiesAlive != 0 || !this.state.firstZombieAppeared) && _react.default.createElement("div", null, _react.default.createElement("div", {
         className: "game-container"
-      }, _react.default.createElement(_button.default, null), _react.default.createElement(_button.default, null), _react.default.createElement(_button.default, null), _react.default.createElement(_button.default, null), _react.default.createElement(_button.default, null), _react.default.createElement(_button.default, null), _react.default.createElement(_button.default, null), _react.default.createElement(_button.default, null), _react.default.createElement(_button.default, null)), _react.default.createElement(_timer.default, {
+      }, _react.default.createElement(_button.default, {
+        zombiesAlive: this.state.zombiesAlive,
+        increment: this.increment,
+        decrement: this.decrement,
+        firstZombieAppeared: this.setFirstZombieAppeared
+      }), _react.default.createElement(_button.default, {
+        zombiesAlive: this.state.zombiesAlive,
+        increment: this.increment,
+        decrement: this.decrement,
+        firstZombieAppeared: this.setFirstZombieAppeared
+      }), _react.default.createElement(_button.default, {
+        zombiesAlive: this.state.zombiesAlive,
+        increment: this.increment,
+        decrement: this.decrement,
+        firstZombieAppeared: this.setFirstZombieAppeared
+      }), _react.default.createElement(_button.default, {
+        zombiesAlive: this.state.zombiesAlive,
+        increment: this.increment,
+        decrement: this.decrement,
+        firstZombieAppeared: this.setFirstZombieAppeared
+      }), _react.default.createElement(_button.default, {
+        zombiesAlive: this.state.zombiesAlive,
+        increment: this.increment,
+        decrement: this.decrement,
+        firstZombieAppeared: this.setFirstZombieAppeared
+      }), _react.default.createElement(_button.default, {
+        zombiesAlive: this.state.zombiesAlive,
+        increment: this.increment,
+        decrement: this.decrement,
+        firstZombieAppeared: this.setFirstZombieAppeared
+      }), _react.default.createElement(_button.default, {
+        zombiesAlive: this.state.zombiesAlive,
+        increment: this.increment,
+        decrement: this.decrement,
+        firstZombieAppeared: this.setFirstZombieAppeared
+      }), _react.default.createElement(_button.default, {
+        zombiesAlive: this.state.zombiesAlive,
+        increment: this.increment,
+        decrement: this.decrement,
+        firstZombieAppeared: this.setFirstZombieAppeared
+      }), _react.default.createElement(_button.default, {
+        zombiesAlive: this.state.zombiesAlive,
+        increment: this.increment,
+        decrement: this.decrement,
+        firstZombieAppeared: this.setFirstZombieAppeared
+      })), _react.default.createElement(_timer.default, {
         time: this.state.seconds
-      })), this.state.seconds == 0 && _react.default.createElement(_gameOver.default, null));
+      })), this.state.seconds == 0 && _react.default.createElement(_gameOver.default, null), this.state.zombiesAlive == 0 && this.state.firstZombieAppeared && _react.default.createElement(_youHaveWon.default, null));
     }
   }]);
 
@@ -22517,61 +22645,7 @@ function (_React$Component) {
 }(_react.default.Component);
 
 exports.default = Game;
-},{"react":"../node_modules/react/index.js","../../public/zombieface.png":"zombieface.png","../../public/style":"style.css","./button":"../src/components/button.js","./timer":"../src/components/timer.js","./gameOver":"../src/components/gameOver.js"}],"../src/components/start.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-var Start =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(Start, _React$Component);
-
-  function Start() {
-    _classCallCheck(this, Start);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(Start).apply(this, arguments));
-  }
-
-  _createClass(Start, [{
-    key: "render",
-    value: function render() {
-      return _react.default.createElement("div", null, _react.default.createElement("button", {
-        onClick: this.props.clickHandler
-      }, _react.default.createElement("h1", null, " >> Play >>")));
-    }
-  }]);
-
-  return Start;
-}(_react.default.Component);
-
-exports.default = Start;
-},{"react":"../node_modules/react/index.js"}],"../src/components/intro.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../../public/zombieface.png":"zombieface.png","../../public/style":"style.css","./button":"../src/components/button.js","./timer":"../src/components/timer.js","./gameOver":"../src/components/gameOver.js","./youHaveWon":"../src/components/youHaveWon.js"}],"../src/components/intro.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -22582,8 +22656,6 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 
 var _game = _interopRequireDefault(require("./game"));
-
-var _start = _interopRequireDefault(require("./start"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22611,40 +22683,15 @@ function (_React$Component) {
   _inherits(Intro, _React$Component);
 
   function Intro() {
-    var _getPrototypeOf2;
-
-    var _this;
-
     _classCallCheck(this, Intro);
 
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Intro)).call.apply(_getPrototypeOf2, [this].concat(args)));
-    _this.state = {
-      gameOn: false
-    };
-
-    _this.startGame = function () {
-      _this.setState(function (prevState, props) {
-        return {
-          gameOn: true
-        };
-      });
-    };
-
-    return _this;
+    return _possibleConstructorReturn(this, _getPrototypeOf(Intro).apply(this, arguments));
   }
 
   _createClass(Intro, [{
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, !this.state.gameOn && _react.default.createElement("div", {
-        className: "header"
-      }, _react.default.createElement("h1", null, "Bust Zombieee"), _react.default.createElement("p", null, "Zombies keep coming! You need to click on them to bust them!"), _react.default.createElement(_start.default, {
-        clickHandler: this.startGame
-      })), this.state.gameOn && _react.default.createElement(_game.default, null));
+      return _react.default.createElement("div", null, _react.default.createElement("div", null, _react.default.createElement("h1", null, "Bust Zombieee"), _react.default.createElement("p", null, "Zombies keep coming! You need to click on them to bust them!")), _react.default.createElement(_game.default, null));
     }
   }]);
 
@@ -22652,7 +22699,7 @@ function (_React$Component) {
 }(_react.default.Component);
 
 exports.default = Intro;
-},{"react":"../node_modules/react/index.js","./game":"../src/components/game.js","./start":"../src/components/start.js"}],"../src/components/app.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./game":"../src/components/game.js"}],"../src/components/app.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -22747,7 +22794,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "37507" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65466" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
