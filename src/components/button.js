@@ -4,21 +4,28 @@ import style from "../../public/style";
 
 export default class Btn extends React.Component {
   state = {
-    showZombie: true
+    showZombie: false
   };
+
+  componentDidMount() {
+    setTimeout(
+      this.refreshZombies,
+      Math.floor(Math.random() * (5000 - 1000) + 1000)
+    );
+  }
   toggle = () => {
     this.setState((prevState, props) => {
       if (prevState.showZombie) {
-        setTimeout(this.refreshZombies, 2000);
-        return { showZombie: !prevState.showZombie };
-      } else {
-        return { showZombie: !prevState.showZombie };
+        setTimeout(
+          this.refreshZombies,
+          Math.floor(Math.random() * (5000 - 1000) + 1000)
+        );
       }
+      return { showZombie: !prevState.showZombie };
     });
   };
   refreshZombies = () => {
-    this.setState((prevState, props) => {
-      // if(!this.showZombie)
+    this.setState(prevState => {
       return { showZombie: !prevState.showZombie };
     });
   };
@@ -29,6 +36,8 @@ export default class Btn extends React.Component {
   //   })
   // }
   render() {
+    // const { appear } = this.props.zombie;
+    // console.log(appear);
     return (
       <div className="img-container">
         {this.state.showZombie && (
