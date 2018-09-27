@@ -4,26 +4,24 @@ import style from "../../public/style";
 
 export default class Btn extends React.Component {
   state = {
-    showZombie: true,
+    showZombie: true
   };
   toggle = () => {
     this.setState((prevState, props) => {
-      
-        if(prevState.showZombie)
-        {
-          setTimeout(this.refreshZombies, 1000);
-          return { showZombie: !prevState.showZombie };
-        } else {
-          return { showZombie: !prevState.showZombie };
-        }
+      if (prevState.showZombie) {
+        setTimeout(this.refreshZombies, 2000);
+        return { showZombie: !prevState.showZombie };
+      } else {
+        return { showZombie: !prevState.showZombie };
+      }
     });
   };
   refreshZombies = () => {
     this.setState((prevState, props) => {
       // if(!this.showZombie)
       return { showZombie: !prevState.showZombie };
-    })
-  }
+    });
+  };
 
   // randomShowZombie = () => {
   //   this.setState( (prevState, props) => {
@@ -33,16 +31,17 @@ export default class Btn extends React.Component {
   render() {
     return (
       <div className="img-container">
-
-
-        {this.state.showZombie &&
-          <img src={icon} alt={"zombie face"} id={this.props.id} onClick={this.toggle} />
-        }
-        {!this.state.showZombie &&
-
-          <div className='empty_img' id={this.props.id} ></div>
-        }
-
+        {this.state.showZombie && (
+          <img
+            src={icon}
+            alt={"zombie face"}
+            id={this.props.id}
+            onClick={this.toggle}
+          />
+        )}
+        {!this.state.showZombie && (
+          <div className="empty_img" id={this.props.id} />
+        )}
       </div>
     );
   }
