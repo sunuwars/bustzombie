@@ -55,9 +55,6 @@ export default class Game extends React.Component {
     // console.log(this.state)
     return (
       <div>
-        <div className="page-container">
-          <h1>Bust Zombieee</h1>
-        </div>
         {/* render this div if this.state.seconds == 0, i.e time has not run out
          AND ( (first zombie has appeared AND zombies alive is not 0 
           AND zombies alive is less than 9- because them you lose)
