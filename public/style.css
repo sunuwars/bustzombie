@@ -44,45 +44,74 @@ h1 {
   font-family: "Eater", cursive;
   color: #fd5200;
   margin: 0;
-  letter-spacing: 8px;
+  letter-spacing: 4px;
+}
+
+h2 {
 }
 
 p {
   margin: 24px;
 }
 
-.header {
+.page-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 24px;
+  margin: 1rem;
 }
 
 .game-container {
   border: 8px solid #41463d;
   display: flex;
   flex-wrap: wrap;
-  height: 75vmin;
-  width: 75vmin;
+  height: 50vmin;
+  width: 50vmin;
   background-color: #00cfc1;
   margin: auto;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
 }
 
 .img-container {
-  height: calc(75vmin / 3);
-  width: calc(75vmin / 3);
+  height: calc(50vmin / 3);
+  width: calc(50vmin / 3);
   /* border: 1px solid green; */
   float: left;
 }
 
 .empty_img,
 #2 {
-  height: calc(75vmin / 3);
-  width: calc(75vmin / 3);
-  color: red;
+  height: calc(50vmin / 3);
+  width: calc(50vmin / 3);
   float: left;
 }
 img {
-  height: calc(75vmin / 3);
-  width: calc(75vmin / 3);
+  height: calc(50vmin / 3);
+  width: calc(50vmin / 3);
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+}
+
+.timer {
+  width: calc(50vmin / 3);
+  /* background-color: #00cfc1; */
+  border: 2px solid #41463d;
+  text-align: center;
+  font-family: "Oswald", sans-serif;
+  color: #41463d;
+  font-size: 1.5rem;
+  padding: 0.25rem;
+  margin: auto;
+  margin-top: 0.5rem;
+}
+
+.game-over,
+.you-win {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem;
 }

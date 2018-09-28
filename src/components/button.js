@@ -8,43 +8,41 @@ export default class Btn extends React.Component {
   };
 
   componentDidMount() {
-    setTimeout(
+    let timeoutId = setTimeout(
       this.respawnZombies,
       Math.floor(Math.random() * (5000 - 3000) + 3000)
     );
   }
   toggle = () => {
     this.setState((prevState, props) => {
-      
       if (prevState.showZombie) {
         setTimeout(
           this.respawnZombies,
           Math.floor(Math.random() * (5000 - 3000) + 3000)
-        ); 
-        const {decrement} = props;
+        );
+        const { decrement } = props;
         decrement();
         return { showZombie: !prevState.showZombie };
       }
-
     });
   };
   respawnZombies = () => {
     this.setState((prevState, props) => {
       const { increment } = props;
-      const {firstZombieAppeared} = props;
+      const { firstZombieAppeared } = props;
       // console.log(increment)
       increment();
       firstZombieAppeared();
-      return { showZombie: !prevState.showZombie};
+      return { showZombie: !prevState.showZombie };
     });
   };
 
   render() {
-    
     return (
       <div className="img-container">
         {this.state.showZombie && (
           <img
+            draggable="false"
             src={icon}
             alt={"zombie face"}
             id={this.props.id}
