@@ -22576,9 +22576,7 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       // console.log(this.state)
-      return _react.default.createElement("div", null, _react.default.createElement("div", {
-        className: "page-container"
-      }, _react.default.createElement("h1", null, "Bust Zombieee")), !this.state.seconds == 0 && (this.state.firstZombieAppeared && this.state.zombiesAlive != 0 && this.state.zombiesAlive < 9 || !this.state.firstZombieAppeared) && _react.default.createElement("div", null, _react.default.createElement("div", {
+      return _react.default.createElement("div", null, !this.state.seconds == 0 && (this.state.firstZombieAppeared && this.state.zombiesAlive != 0 && this.state.zombiesAlive < 9 || !this.state.firstZombieAppeared) && _react.default.createElement("div", null, _react.default.createElement("div", {
         className: "game-container"
       }, _react.default.createElement(_button.default, {
         zombiesAlive: this.state.zombiesAlive,
@@ -22689,7 +22687,30 @@ function (_React$Component) {
 }(_react.default.Component);
 
 exports.default = Start;
-},{"react":"../node_modules/react/index.js"}],"../src/components/intro.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js"}],"../src/components/text.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Description = exports.Title = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Title = function Title() {
+  return _react.default.createElement("h1", null, "Bust Zombieee");
+};
+
+exports.Title = Title;
+
+var Description = function Description() {
+  return _react.default.createElement("div", null, _react.default.createElement("p", null, "ZOMBIES keep coming! You need to click on them to bust them!"), _react.default.createElement("p", null, "DON'T let them fill the box! "));
+};
+
+exports.Description = Description;
+},{"react":"../node_modules/react/index.js"}],"../src/components/mainPage.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -22702,6 +22723,8 @@ var _react = _interopRequireDefault(require("react"));
 var _game = _interopRequireDefault(require("./game"));
 
 var _start = _interopRequireDefault(require("./start"));
+
+var _text = require("./text");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22723,29 +22746,30 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var Intro =
+var MainPage =
 /*#__PURE__*/
 function (_React$Component) {
-  _inherits(Intro, _React$Component);
+  _inherits(MainPage, _React$Component);
 
-  function Intro() {
+  function MainPage() {
     var _getPrototypeOf2;
 
     var _this;
 
-    _classCallCheck(this, Intro);
+    _classCallCheck(this, MainPage);
 
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Intro)).call.apply(_getPrototypeOf2, [this].concat(args)));
+    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(MainPage)).call.apply(_getPrototypeOf2, [this].concat(args)));
     _this.state = {
-      gameOn: false
+      gameOn: false,
+      nextGame: false
     };
 
     _this.startGame = function () {
-      _this.setState(function (prevState, props) {
+      _this.setState(function (prevState) {
         return {
           gameOn: true
         };
@@ -22755,22 +22779,22 @@ function (_React$Component) {
     return _this;
   }
 
-  _createClass(Intro, [{
+  _createClass(MainPage, [{
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, !this.state.gameOn && _react.default.createElement("div", {
+      return _react.default.createElement("div", {
         className: "page-container"
-      }, _react.default.createElement("h1", null, "Bust Zombieee"), _react.default.createElement("p", null, "Zombies keep coming! You need to click on them to bust them!"), _react.default.createElement(_start.default, {
+      }, _react.default.createElement(_text.Title, null), !this.state.gameOn && _react.default.createElement("div", null, _react.default.createElement(_text.Description, null), _react.default.createElement(_start.default, {
         clickHandler: this.startGame
       })), this.state.gameOn && _react.default.createElement(_game.default, null));
     }
   }]);
 
-  return Intro;
+  return MainPage;
 }(_react.default.Component);
 
-exports.default = Intro;
-},{"react":"../node_modules/react/index.js","./game":"../src/components/game.js","./start":"../src/components/start.js"}],"../src/components/app.js":[function(require,module,exports) {
+exports.default = MainPage;
+},{"react":"../node_modules/react/index.js","./game":"../src/components/game.js","./start":"../src/components/start.js","./text":"../src/components/text.js"}],"../src/components/app.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -22780,7 +22804,7 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
-var _intro = _interopRequireDefault(require("./intro"));
+var _mainPage = _interopRequireDefault(require("./mainPage"));
 
 var _reactDom = require("react-dom");
 
@@ -22818,7 +22842,7 @@ function (_React$Component) {
   _createClass(App, [{
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, _react.default.createElement(_intro.default, null));
+      return _react.default.createElement("div", null, _react.default.createElement(_mainPage.default, null));
     }
   }]);
 
@@ -22826,7 +22850,7 @@ function (_React$Component) {
 }(_react.default.Component);
 
 exports.default = App;
-},{"react":"../node_modules/react/index.js","./intro":"../src/components/intro.js","react-dom":"../node_modules/react-dom/index.js"}],"../src/index.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./mainPage":"../src/components/mainPage.js","react-dom":"../node_modules/react-dom/index.js"}],"../src/index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -22865,7 +22889,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50206" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49737" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
