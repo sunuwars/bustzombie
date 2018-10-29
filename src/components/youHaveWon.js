@@ -4,9 +4,12 @@ export default class YouHaveWon extends React.Component {
   render() {
     return (
       <div className="game-over">
-        <h2>Congratulations!</h2>
-        <h2>You survived!</h2>
+        <h1>Congratulations!</h1>
+        <h1>You survived!</h1>
       </div>
     );
   }
 }
+
+
+

@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest --watch",
     "start": "parcel public/index.html",
-    "build": "parcel build index.html"
+    "build": "parcel build index.html",
+    "spin": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -42,7 +43,11 @@
     "parcel-bundler": "^1.10.0"
   },
   "dependencies": {
+    "env2": "^2.2.2",
+    "express": "^4.16.3",
+    "path": "^0.12.7",
     "react": "^16.5.2",
-    "react-dom": "^16.5.2"
+    "react-dom": "^16.5.2",
+    "serve-static": "^1.13.2"
   }
 }

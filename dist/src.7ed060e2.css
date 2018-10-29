@@ -1,32 +1,69 @@
 @import url("https://fonts.googleapis.com/css?family=Eater|Oswald");
-
-/* 
-  #41463D
-  #FE621D
-  #FD5200
-  #00CFC1
-  #00FFE7
-  #C7EDE4
-*/
+@import url("https://fonts.googleapis.com/css?family=Indie+Flower|Permanent+Marker" ) ;
 
 body {
-  margin: 0;
-  padding: 0;
-  font-family: "Oswald", sans-serif;
-  color: #41463d;
-  background-color: #c7ede4;
-  max-width: 100vw;
-  max-height: 100vh;
+  font-family: 'Indie Flower', cursive;
+  /* font-family: 'Oswald', sans-serif; */
+  background-color:aquamarine;
+  color: indianred
+}
+/* the html font-size is 1em ( or whatever the size of html 
+font size is we're saying that's our 1 em) */
+
+html { 
+  font-size: 1em;}
+h1 { font-size: 3.074em;}
+h2 {font-size: 1.728em;}
+h3 {font-size: 1.44em;}
+h4 {font-size: 1.2em;}
+small { font-size: 0.833em;}
+
+img {
+  height: calc(50vmin / 3);
+  width: calc(50vmin / 3);
+  /* -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none; */
+}
+#title {
+  font-family: 'Permanent Marker', cursive;
+  font-size:3.5em;
 }
 
-#root {
-  padding: 5vmin;
-  width: 90vw;
-  height: 90vh;
+.empty_img,
+#2 {
+  height: calc(50vmin / 3);
+  width: calc(50vmin / 3);
+  float: left;
+}
+
+.img-container {
+  height: calc(50vmin / 3);
+  width: calc(50vmin / 3); 
+  /* border: 1px solid green; */
+  /* float: left;*/
+}
+ .game-container {
+  border: 8px solid #41463d;
+  display: flex;
+  flex-wrap: wrap;
+  height: 50vmin;
+  width: 50vmin;
+  background-color: #00cfc1;
+  margin: auto;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+} 
+.page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem;
 }
 
 button {
-  background-color: #fd5200;
+  background-color: indianred;
   border: 8px solid #41463d;
   padding: 0 16px;
   border-radius: 8px;
@@ -40,63 +77,23 @@ button > h1 {
   letter-spacing: 4px;
 }
 
-h1 {
-  font-family: "Eater", cursive;
-  color: #fd5200;
-  margin: 0;
-  letter-spacing: 4px;
-}
 
-h2 {
-}
 
-p {
-  margin: 24px;
+#root {
+  padding: 5vmin;
+  width: 90vw;
+  height: 90vh;
 }
-
-.page-container {
+.game-over,
+.you-win {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 1rem;
-}
+} 
 
-.game-container {
-  border: 8px solid #41463d;
-  display: flex;
-  flex-wrap: wrap;
-  height: 50vmin;
-  width: 50vmin;
-  background-color: #00cfc1;
-  margin: auto;
-  margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
-}
-
-.img-container {
-  height: calc(50vmin / 3);
-  width: calc(50vmin / 3);
-  /* border: 1px solid green; */
-  float: left;
-}
-
-.empty_img,
-#2 {
-  height: calc(50vmin / 3);
-  width: calc(50vmin / 3);
-  float: left;
-}
-img {
-  height: calc(50vmin / 3);
-  width: calc(50vmin / 3);
-  -webkit-user-drag: none;
-  -khtml-user-drag: none;
-  -moz-user-drag: none;
-  -o-user-drag: none;
-}
-
-.timer {
-  width: calc(50vmin / 3);
+ .timer {
+  width: calc(50vmin / 3); 
   /* background-color: #00cfc1; */
   border: 2px solid #41463d;
   text-align: center;
@@ -106,12 +103,4 @@ img {
   padding: 0.25rem;
   margin: auto;
   margin-top: 0.5rem;
-}
-
-.game-over,
-.you-win {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 1rem;
-}
+} 

@@ -5,7 +5,7 @@ export default class Start extends React.Component {
     return (
       <div>
         <button onClick={this.props.clickHandler}>
-          <h1> >> Play >></h1>
+          <h2> >> Play >></h2>
         </button>
       </div>
     );

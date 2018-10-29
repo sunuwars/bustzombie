@@ -8,32 +8,49 @@ export default class Btn extends React.Component {
   };
 
   componentDidMount() {
-    let timeoutId = setTimeout(
-      this.respawnZombies,
-      Math.floor(Math.random() * (5000 - 3000) + 3000)
+    //this will trigger spawnzombie function after random interval between 7sec to 1 sec
+    const timeoutId = setTimeout(
+      this.spawnZombie,
+      Math.floor(Math.random() * (7000 - 2000) + 2000)
     );
+    // const newFunction = (timeoutId, ()=> {
+    //   console.log('timeoutId=', timeoutId);
+    //   const {firstZombieAppeared} = this.props;
+    //   firstZombieAppeared();
+    // });
+    // newFunction(timeoutId);
+    // const newFun = ( setTimeout(
+    //   this.spawnZombie,
+    //   Math.floor(Math.random() * (7000 - 2000) + 2000)
+    // ) , ()=> {
+    //   // console.log('timeoutId=', timeoutId);
+    //   const {firstZombieAppeared} = this.props;
+    //   firstZombieAppeared();
+    // } );
+    //
+    // newFun();
+
   }
-  toggle = () => {
+  componentWillUnmount() {
+    this.props.stopcountdown();
+  }
+  bustZombie = () => {
     this.setState((prevState, props) => {
-      if (prevState.showZombie) {
         setTimeout(
-          this.respawnZombies,
-          Math.floor(Math.random() * (5000 - 3000) + 3000)
+          this.spawnZombie,
+          Math.floor(Math.random() * (7000 - 2000) + 2000)
         );
-        const { decrement } = props;
-        decrement();
-        return { showZombie: !prevState.showZombie };
-      }
+        this.props.decrement();
+        //return { showZombie: !prevState.showZombie };
+        return { showZombie: false};
     });
   };
-  respawnZombies = () => {
+  spawnZombie = () => {
     this.setState((prevState, props) => {
-      const { increment } = props;
-      const { firstZombieAppeared } = props;
-      // console.log(increment)
-      increment();
-      firstZombieAppeared();
-      return { showZombie: !prevState.showZombie };
+      this.props.increment();
+      this.props.firstZombieAppeared();
+      //return { showZombie: !prevState.showZombie };
+      return { showZombie: true};
     });
   };
 
@@ -46,7 +63,7 @@ export default class Btn extends React.Component {
             src={icon}
             alt={"zombie face"}
             id={this.props.id}
-            onClick={this.toggle}
+            onClick={this.bustZombie}
           />
         )}
         {!this.state.showZombie && (

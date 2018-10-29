@@ -13,9 +13,7 @@ export default class Game extends React.Component {
     zombiesAlive: 0,
     firstZombieAppeared: false
   };
-  // problem: have to clear this timer when you win or loose
-  // otherwise the gameover screen renders on top of you win screen
-  // after time is over
+
   componentDidMount() {
     this.intervalId = setInterval(this.countDown, 1000);
   }
@@ -42,26 +40,30 @@ export default class Game extends React.Component {
   //this will countDown the play time, so we can stop the game when seconds = 0
   countDown = () => {
     this.setState(prevState => {
-      if (prevState.seconds == 1) {
-        clearInterval(this.intervalId);
+      if (prevState.seconds == 0) {
+        // clearInterval(this.intervalId);
+        this.stopCountDown();
       }
       return {
         seconds: prevState.seconds - 1
       };
     });
   };
+  stopCountDown = () => {
+    clearInterval(this.intervalId);
+  }
 
   render() {
     // console.log(this.state)
     return (
       <div>
         <div className="page-container">
-          <h1>Bust Zombieee</h1>
+          <h1 id="title">Bust Zombieee</h1>
         </div>
         {/* render this div if this.state.seconds == 0, i.e time has not run out
-         AND ( (first zombie has appeared AND zombies alive is not 0 
+         AND ( (first zombie has appeared AND zombies alive is not 0
           AND zombies alive is less than 9- because them you lose)
-         OR (first zombie has not appeared, we don't want to end game before it starts! )*/}
+         OR (first zombie has not appeared, we don't want to end game before it starts! ) )*/}
 
         {!this.state.seconds == 0 &&
           ((this.state.firstZombieAppeared &&
@@ -75,54 +77,63 @@ export default class Game extends React.Component {
                   increment={this.increment}
                   decrement={this.decrement}
                   firstZombieAppeared={this.setFirstZombieAppeared}
+                  stopcountdown = {this.stopCountDown}
                 />
                 <Btn
                   zombiesAlive={this.state.zombiesAlive}
                   increment={this.increment}
                   decrement={this.decrement}
                   firstZombieAppeared={this.setFirstZombieAppeared}
+                  stopcountdown = {this.stopCountDown}
                 />
                 <Btn
                   zombiesAlive={this.state.zombiesAlive}
                   increment={this.increment}
                   decrement={this.decrement}
                   firstZombieAppeared={this.setFirstZombieAppeared}
+                  stopcountdown = {this.stopCountDown}
                 />
                 <Btn
                   zombiesAlive={this.state.zombiesAlive}
                   increment={this.increment}
                   decrement={this.decrement}
                   firstZombieAppeared={this.setFirstZombieAppeared}
+                  stopcountdown = {this.stopCountDown}
                 />
                 <Btn
                   zombiesAlive={this.state.zombiesAlive}
                   increment={this.increment}
                   decrement={this.decrement}
                   firstZombieAppeared={this.setFirstZombieAppeared}
+                  stopcountdown = {this.stopCountDown}
                 />
                 <Btn
                   zombiesAlive={this.state.zombiesAlive}
                   increment={this.increment}
                   decrement={this.decrement}
                   firstZombieAppeared={this.setFirstZombieAppeared}
+                  stopcountdown = {this.stopCountDown}
                 />
                 <Btn
                   zombiesAlive={this.state.zombiesAlive}
                   increment={this.increment}
                   decrement={this.decrement}
                   firstZombieAppeared={this.setFirstZombieAppeared}
+                  stopcountdown = {this.stopCountDown}
                 />
                 <Btn
                   zombiesAlive={this.state.zombiesAlive}
                   increment={this.increment}
                   decrement={this.decrement}
                   firstZombieAppeared={this.setFirstZombieAppeared}
+                  stopcountdown = {this.stopCountDown}
                 />
                 <Btn
                   zombiesAlive={this.state.zombiesAlive}
                   increment={this.increment}
                   decrement={this.decrement}
                   firstZombieAppeared={this.setFirstZombieAppeared}
+                  stopcountdown = {this.stopCountDown}
                 />
               </div>
               <Timer time={this.state.seconds} />

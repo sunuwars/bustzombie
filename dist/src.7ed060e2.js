@@ -22238,28 +22238,28 @@ function (_React$Component) {
       showZombie: false
     };
 
-    _this.toggle = function () {
+    _this.bustZombie = function () {
       _this.setState(function (prevState, props) {
-        if (prevState.showZombie) {
-          setTimeout(_this.respawnZombies, Math.floor(Math.random() * (5000 - 3000) + 3000));
-          var decrement = props.decrement;
-          decrement();
-          return {
-            showZombie: !prevState.showZombie
-          };
-        }
+        setTimeout(_this.spawnZombie, Math.floor(Math.random() * (7000 - 2000) + 2000));
+
+        _this.props.decrement(); //return { showZombie: !prevState.showZombie };
+
+
+        return {
+          showZombie: false
+        };
       });
     };
 
-    _this.respawnZombies = function () {
+    _this.spawnZombie = function () {
       _this.setState(function (prevState, props) {
-        var increment = props.increment;
-        var firstZombieAppeared = props.firstZombieAppeared; // console.log(increment)
+        _this.props.increment();
 
-        increment();
-        firstZombieAppeared();
+        _this.props.firstZombieAppeared(); //return { showZombie: !prevState.showZombie };
+
+
         return {
-          showZombie: !prevState.showZombie
+          showZombie: true
         };
       });
     };
@@ -22270,7 +22270,28 @@ function (_React$Component) {
   _createClass(Btn, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var timeoutId = setTimeout(this.respawnZombies, Math.floor(Math.random() * (5000 - 3000) + 3000));
+      //this will trigger spawnzombie function after random interval between 7sec to 1 sec
+      var timeoutId = setTimeout(this.spawnZombie, Math.floor(Math.random() * (7000 - 2000) + 2000)); // const newFunction = (timeoutId, ()=> {
+      //   console.log('timeoutId=', timeoutId);
+      //   const {firstZombieAppeared} = this.props;
+      //   firstZombieAppeared();
+      // });
+      // newFunction(timeoutId);
+      // const newFun = ( setTimeout(
+      //   this.spawnZombie,
+      //   Math.floor(Math.random() * (7000 - 2000) + 2000)
+      // ) , ()=> {
+      //   // console.log('timeoutId=', timeoutId);
+      //   const {firstZombieAppeared} = this.props;
+      //   firstZombieAppeared();
+      // } );
+      //
+      // newFun();
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this.props.stopcountdown();
     }
   }, {
     key: "render",
@@ -22282,7 +22303,7 @@ function (_React$Component) {
         src: _zombieface.default,
         alt: "zombie face",
         id: this.props.id,
-        onClick: this.toggle
+        onClick: this.bustZombie
       }), !this.state.showZombie && _react.default.createElement("div", {
         className: "empty_img",
         id: this.props.id
@@ -22394,7 +22415,7 @@ function (_React$Component) {
     value: function render() {
       return _react.default.createElement("div", {
         className: "game-over"
-      }, _react.default.createElement("h2", null, "Game over!"), _react.default.createElement("h1", null, "Braaaaaains..."));
+      }, _react.default.createElement("h1", null, "Game over!"), _react.default.createElement("h1", null, "Braaaaaains..."));
     }
   }]);
 
@@ -22448,7 +22469,7 @@ function (_React$Component) {
     value: function render() {
       return _react.default.createElement("div", {
         className: "game-over"
-      }, _react.default.createElement("h2", null, "Congratulations!"), _react.default.createElement("h2", null, "You survived!"));
+      }, _react.default.createElement("h1", null, "Congratulations!"), _react.default.createElement("h1", null, "You survived!"));
     }
   }]);
 
@@ -22549,8 +22570,9 @@ function (_React$Component) {
 
     _this.countDown = function () {
       _this.setState(function (prevState) {
-        if (prevState.seconds == 1) {
-          clearInterval(_this.intervalId);
+        if (prevState.seconds == 0) {
+          // clearInterval(this.intervalId);
+          _this.stopCountDown();
         }
 
         return {
@@ -22559,14 +22581,15 @@ function (_React$Component) {
       });
     };
 
+    _this.stopCountDown = function () {
+      clearInterval(_this.intervalId);
+    };
+
     return _this;
   }
 
   _createClass(Game, [{
     key: "componentDidMount",
-    // problem: have to clear this timer when you win or loose
-    // otherwise the gameover screen renders on top of you win screen
-    // after time is over
     value: function componentDidMount() {
       this.intervalId = setInterval(this.countDown, 1000);
     } //calling this function will set firstZombieAppeared to true, this is useful in determining if user has won the game by checking
@@ -22578,53 +22601,64 @@ function (_React$Component) {
       // console.log(this.state)
       return _react.default.createElement("div", null, _react.default.createElement("div", {
         className: "page-container"
-      }, _react.default.createElement("h1", null, "Bust Zombieee")), !this.state.seconds == 0 && (this.state.firstZombieAppeared && this.state.zombiesAlive != 0 && this.state.zombiesAlive < 9 || !this.state.firstZombieAppeared) && _react.default.createElement("div", null, _react.default.createElement("div", {
+      }, _react.default.createElement("h1", {
+        id: "title"
+      }, "Bust Zombieee")), !this.state.seconds == 0 && (this.state.firstZombieAppeared && this.state.zombiesAlive != 0 && this.state.zombiesAlive < 9 || !this.state.firstZombieAppeared) && _react.default.createElement("div", null, _react.default.createElement("div", {
         className: "game-container"
       }, _react.default.createElement(_button.default, {
         zombiesAlive: this.state.zombiesAlive,
         increment: this.increment,
         decrement: this.decrement,
-        firstZombieAppeared: this.setFirstZombieAppeared
+        firstZombieAppeared: this.setFirstZombieAppeared,
+        stopcountdown: this.stopCountDown
       }), _react.default.createElement(_button.default, {
         zombiesAlive: this.state.zombiesAlive,
         increment: this.increment,
         decrement: this.decrement,
-        firstZombieAppeared: this.setFirstZombieAppeared
+        firstZombieAppeared: this.setFirstZombieAppeared,
+        stopcountdown: this.stopCountDown
       }), _react.default.createElement(_button.default, {
         zombiesAlive: this.state.zombiesAlive,
         increment: this.increment,
         decrement: this.decrement,
-        firstZombieAppeared: this.setFirstZombieAppeared
+        firstZombieAppeared: this.setFirstZombieAppeared,
+        stopcountdown: this.stopCountDown
       }), _react.default.createElement(_button.default, {
         zombiesAlive: this.state.zombiesAlive,
         increment: this.increment,
         decrement: this.decrement,
-        firstZombieAppeared: this.setFirstZombieAppeared
+        firstZombieAppeared: this.setFirstZombieAppeared,
+        stopcountdown: this.stopCountDown
       }), _react.default.createElement(_button.default, {
         zombiesAlive: this.state.zombiesAlive,
         increment: this.increment,
         decrement: this.decrement,
-        firstZombieAppeared: this.setFirstZombieAppeared
+        firstZombieAppeared: this.setFirstZombieAppeared,
+        stopcountdown: this.stopCountDown
       }), _react.default.createElement(_button.default, {
         zombiesAlive: this.state.zombiesAlive,
         increment: this.increment,
         decrement: this.decrement,
-        firstZombieAppeared: this.setFirstZombieAppeared
+        firstZombieAppeared: this.setFirstZombieAppeared,
+        stopcountdown: this.stopCountDown
       }), _react.default.createElement(_button.default, {
         zombiesAlive: this.state.zombiesAlive,
         increment: this.increment,
         decrement: this.decrement,
-        firstZombieAppeared: this.setFirstZombieAppeared
+        firstZombieAppeared: this.setFirstZombieAppeared,
+        stopcountdown: this.stopCountDown
       }), _react.default.createElement(_button.default, {
         zombiesAlive: this.state.zombiesAlive,
         increment: this.increment,
         decrement: this.decrement,
-        firstZombieAppeared: this.setFirstZombieAppeared
+        firstZombieAppeared: this.setFirstZombieAppeared,
+        stopcountdown: this.stopCountDown
       }), _react.default.createElement(_button.default, {
         zombiesAlive: this.state.zombiesAlive,
         increment: this.increment,
         decrement: this.decrement,
-        firstZombieAppeared: this.setFirstZombieAppeared
+        firstZombieAppeared: this.setFirstZombieAppeared,
+        stopcountdown: this.stopCountDown
       })), _react.default.createElement(_timer.default, {
         time: this.state.seconds
       })), this.state.zombiesAlive == 0 && this.state.firstZombieAppeared && _react.default.createElement(_youHaveWon.default, null), (this.state.seconds == 0 || this.state.zombiesAlive >= 9) && _react.default.createElement(_gameOver.default, null));
@@ -22681,7 +22715,7 @@ function (_React$Component) {
     value: function render() {
       return _react.default.createElement("div", null, _react.default.createElement("button", {
         onClick: this.props.clickHandler
-      }, _react.default.createElement("h1", null, " >> Play >>")));
+      }, _react.default.createElement("h2", null, " >> Play >>")));
     }
   }]);
 
@@ -22760,7 +22794,9 @@ function (_React$Component) {
     value: function render() {
       return _react.default.createElement("div", null, !this.state.gameOn && _react.default.createElement("div", {
         className: "page-container"
-      }, _react.default.createElement("h1", null, "Bust Zombieee"), _react.default.createElement("p", null, "Zombies keep coming! You need to click on them to bust them!"), _react.default.createElement(_start.default, {
+      }, _react.default.createElement("h1", {
+        id: "title"
+      }, "Bust Zombieee"), _react.default.createElement("h1", null, "The ZOMBIES are coming! "), _react.default.createElement("h1", null, "DON'T let them fill the box! "), _react.default.createElement(_start.default, {
         clickHandler: this.startGame
       })), this.state.gameOn && _react.default.createElement(_game.default, null));
     }
@@ -22865,7 +22901,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50206" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50672" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

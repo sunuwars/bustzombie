@@ -16,9 +16,9 @@ export default class Intro extends React.Component {
       <div>
         {!this.state.gameOn && (
           <div className="page-container">
-            <h1>Bust Zombieee</h1>
-            <p>ZOMBIES keep coming! You need to click on them to bust them!</p>
-            <p>DON'T let them fill the box! </p>
+            <h1 id='title'>Bust Zombieee</h1>
+            <h1>The ZOMBIES are coming! </h1>
+            <h1>DON'T let them fill the box! </h1>
             <Start clickHandler={this.startGame} />
           </div>
         )}

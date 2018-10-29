@@ -1,0 +1,18 @@
+import React from "react";
+import myStyle.css from './myStyle';
+
+export default class Sangita extends React.Component {
+  render() {
+    return (
+      <div className = 'sangita-style'>
+      </div>
+    )
+  }
+}
+
+in myStyle.css
+.sangita-style {
+  margin: 30px;
+  font: comicSans 12px ....;
+  padding: 20px;
+}
